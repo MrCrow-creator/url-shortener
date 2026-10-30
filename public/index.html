@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f7f8fc" />
+    <meta name="description" content="Turn long URLs into simple, memorable links with Snip." />
+    <title>Snip — A little link goes a long way</title>
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/styles.css" />
+    <script type="module" src="/assets/app.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#shorten-form">Skip to URL shortener</a>
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="/" aria-label="Snip home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path
+                d="m10 13 4-4m-5 7-1 1a4.2 4.2 0 0 1-6-6l4-4a4.2 4.2 0 0 1 6 0m0 10a4.2 4.2 0 0 0 6 0l4-4a4.2 4.2 0 0 0-6-6l-1 1"
+                transform="translate(0 -1)"
+              />
+            </svg>
+          </span>
+          snip<span class="brand-dot">.</span>
+        </a>
+        <nav aria-label="Main navigation">
+          <a class="nav-link" href="#recent-links">Your links</a>
+          <button
+            id="service-status"
+            class="service-status"
+            type="button"
+            data-state="checking"
+            title="Check service status"
+          >
+            <span class="status-dot" aria-hidden="true"></span>
+            <span id="service-label" role="status">Checking service</span>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page-shell">
+      <section class="hero" aria-labelledby="page-title">
+        <p class="eyebrow"><span aria-hidden="true">↗</span> LITTLE LINKS. BIG POSSIBILITIES.</p>
+        <h1 id="page-title">A little link goes<br />a <span>long way.</span></h1>
+        <p class="hero-description">
+          Make your URLs shorter, cleaner, and ready to share.<br class="desktop-break" />
+          Your next great link starts right here.
+        </p>
+      </section>
+
+      <div class="workspace">
+        <section class="shortener-card" aria-labelledby="form-heading">
+          <div class="card-heading">
+            <span class="section-icon" aria-hidden="true">↗</span>
+            <div>
+              <h2 id="form-heading">Let's make it short.</h2>
+              <p>Paste a link below. We'll take it from here.</p>
+            </div>
+          </div>
+
+          <noscript
+            ><p class="form-error">Enable JavaScript to create and copy short links.</p></noscript
+          >
+
+          <form id="shorten-form">
+            <fieldset id="form-fields">
+              <div class="field">
+                <label for="destination">Destination URL</label>
+                <input
+                  id="destination"
+                  name="url"
+                  type="url"
+                  placeholder="https://example.com/your-very-long-link"
+                  maxlength="2048"
+                  autocomplete="url"
+                  spellcheck="false"
+                  required
+                  aria-describedby="destination-hint"
+                />
+                <p class="field-hint" id="destination-hint">
+                  The original link you'd like to share.
+                </p>
+              </div>
+
+              <div class="field">
+                <label for="custom-code"
+                  >Custom short code <span class="optional">Optional</span></label
+                >
+                <div class="code-input">
+                  <span class="code-prefix" aria-hidden="true">/</span>
+                  <input
+                    id="custom-code"
+                    name="customCode"
+                    type="text"
+                    placeholder="your-next-big-idea"
+                    minlength="3"
+                    maxlength="32"
+                    pattern="[a-zA-Z0-9_\-]{3,32}"
+                    autocomplete="off"
+                    autocapitalize="none"
+                    spellcheck="false"
+                    aria-describedby="code-hint"
+                  />
+                </div>
+                <p class="field-hint" id="code-hint">
+                  3–32 letters, numbers, hyphens, or underscores. Leave blank to generate one.
+                </p>
+              </div>
+
+              <p id="form-error" class="form-error" role="alert" hidden></p>
+              <button class="button primary-button" id="submit-button" type="submit">
+                <span id="submit-label">Shorten my link</span>
+                <span class="submit-arrow" aria-hidden="true">↗</span>
+                <span class="spinner" aria-hidden="true" hidden></span>
+              </button>
+            </fieldset>
+          </form>
+
+          <section id="result" class="result" aria-labelledby="result-title" hidden>
+            <p class="result-title" id="result-title">
+              <span aria-hidden="true">✓</span> Your link is ready to go
+            </p>
+            <div class="result-row">
+              <a id="result-link" target="_blank" rel="noopener noreferrer"></a>
+              <button class="button copy-button" id="copy-result" type="button">Copy link</button>
+            </div>
+          </section>
+          <p id="feedback" class="screen-reader-only" role="status" aria-live="polite"></p>
+        </section>
+
+        <aside class="how-card" aria-labelledby="how-heading">
+          <span class="aside-eyebrow">LESS LINK. MORE YOU.</span>
+          <h2 id="how-heading">Simple by design.</h2>
+          <p class="aside-description">
+            From a long address to a memorable little link in seconds.
+          </p>
+          <ol class="steps">
+            <li>
+              <span class="step-number">01</span>
+              <div>
+                <h3>Drop your destination</h3>
+                <p>A page, a project, a playlist. Any HTTP or HTTPS link works.</p>
+              </div>
+            </li>
+            <li>
+              <span class="step-number">02</span>
+              <div>
+                <h3>Make it yours</h3>
+                <p>Pick a custom code or let us create a unique one for you.</p>
+              </div>
+            </li>
+            <li>
+              <span class="step-number">03</span>
+              <div>
+                <h3>Copy. Share. Done.</h3>
+                <p>One clean link, ready for wherever the conversation goes.</p>
+              </div>
+            </li>
+          </ol>
+          <div class="aside-footer">
+            <span aria-hidden="true">✦</span> Small detail. Better first impression.
+          </div>
+        </aside>
+      </div>
+
+      <section class="recent-section" id="recent-links" aria-labelledby="recent-heading">
+        <div class="recent-heading">
+          <div class="recent-title">
+            <h2 id="recent-heading">Your recent links</h2>
+            <span id="link-count" class="count-badge">0</span>
+          </div>
+          <button id="clear-history" type="button" class="text-button" disabled>
+            Clear history
+          </button>
+        </div>
+        <p class="history-note">
+          Saved in this browser. Clearing history keeps your short links active.
+        </p>
+        <div id="empty-history" class="empty-history">
+          <span class="empty-icon" aria-hidden="true">↗</span>
+          <h3>A clean slate for your next great link.</h3>
+          <p>Your shortened links will appear here, ready to copy again.</p>
+        </div>
+        <ul
+          id="history-list"
+          class="history-list"
+          aria-label="Recently shortened links"
+          hidden
+        ></ul>
+      </section>
+
+      <footer class="site-footer">
+        <p>Good links. Less clutter.</p>
+        <div aria-label="Powered by">
+          <span>Node.js</span><span>PostgreSQL</span><span>Redis</span><span>Docker</span>
+        </div>
+      </footer>
+    </main>
+  </body>
+</html>
